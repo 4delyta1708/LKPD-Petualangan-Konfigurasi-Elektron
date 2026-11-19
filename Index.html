@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AtomQuest — LKPD Interaktif Konfigurasi Elektron</title>
+<style>
+:root{--navy:#13284b;--blue:#2463eb;--cyan:#dff6ff;--ink:#17243b;--muted:#65748b;--bg:#f4f7fc;--white:#fff;--green:#15803d;--red:#b91c1c;--line:#dfe7f2;--violet:#7c3aed}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(125deg,#10244a,#245de1 70%,#41b7e8);color:white;padding:28px max(20px,calc((100% - 1120px)/2)) 34px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font-weight:800;letter-spacing:.08em;font-size:.86rem}.tag{background:#ffffff25;border:1px solid #ffffff55;padding:6px 11px;border-radius:999px;font-size:.8rem}
+h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;margin:24px 0 12px;max-width:800px}header p{max-width:680px;color:#e8f3ff;margin:0}.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+main{max-width:1120px;margin:0 auto;padding:24px 18px 60px}.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:22px}.sidebar{align-self:start;position:sticky;top:16px;background:white;border:1px solid var(--line);border-radius:18px;padding:14px}.sidebar strong{display:block;padding:8px 10px 12px}.navbtn{display:block;width:100%;text-align:left;border:0;background:transparent;padding:11px 12px;border-radius:10px;color:#4b5b74;cursor:pointer;font:inherit}.navbtn.active,.navbtn:hover{background:#eaf1ff;color:var(--blue);font-weight:700}.content{min-width:0}.panel{display:none;background:white;border:1px solid var(--line);border-radius:20px;padding:clamp(18px,3vw,30px);box-shadow:0 8px 28px #1e3a5f08;margin-bottom:18px}.panel.active{display:block}.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);font-weight:800}.panel h2{font-size:1.6rem;margin:4px 0 14px}.panel h3{margin:20px 0 8px}.muted{color:var(--muted)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px;margin:12px 0}.field label{font-weight:700;font-size:.92rem}input,select,textarea{width:100%;padding:12px 13px;border:1px solid #cbd7e6;border-radius:11px;background:#fff;color:var(--ink);font:inherit}textarea{resize:vertical;min-height:94px}.btn{border:0;border-radius:11px;padding:11px 16px;font:inherit;font-weight:750;cursor:pointer;background:var(--blue);color:white}.btn:hover{filter:brightness(.96)}.btn.secondary{background:#eaf1ff;color:#1d4ed8}.btn.dark{background:var(--navy)}.btn.small{padding:8px 11px;font-size:.88rem}.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.callout{background:#eff6ff;border:1px solid #cfe0ff;padding:15px;border-radius:14px}.callout.green{background:#f0fdf4;border-color:#bbf7d0}.callout.gold{background:#fffbeb;border-color:#fde68a}.shells{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}.shell{width:66px;height:66px;border-radius:50%;border:2px solid #8bb6ff;background:#eff6ff;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:.78rem}.shell b{font-size:1.1rem}.periodic{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:14px}.element{padding:12px 8px;text-align:center;background:#f3f7ff;border:1px solid #d7e5ff;border-radius:12px}.element b{display:block;font-size:1.2rem;color:#1d4ed8}.element small{color:var(--muted)}.question{padding:15px 0;border-bottom:1px solid var(--line)}.question:last-child{border-bottom:0}.qtitle{font-weight:750;margin-bottom:10px}.options{display:grid;gap:8px}.option{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;cursor:pointer}.option input{width:auto;margin-top:5px}.feedback{margin-top:8px;font-size:.9rem;font-weight:700}.correct{color:var(--green)}.incorrect{color:var(--red)}.scorebox{margin-top:14px;padding:16px;border-radius:14px;background:#f0fdf4;border:1px solid #bbf7d0}.progress{height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;margin:12px 0 20px}.progress div{height:100%;width:0;background:#3b82f6;transition:width .25s}table{width:100%;border-collapse:collapse;margin:14px 0;font-size:.94rem}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th{background:#f4f7fc}.footer{text-align:center;color:var(--muted);font-size:.85rem;padding:24px}.hidden{display:none!important}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{position:static;display:flex;overflow:auto;gap:4px;padding:8px}.sidebar strong{display:none}.navbtn{white-space:nowrap;width:auto}.grid3{grid-template-columns:1fr}.periodic{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.grid2{grid-template-columns:1fr}.panel{padding:18px}header{padding:24px 18px 28px}}
+@media print{body{background:white}.sidebar,.btn,header .tag{display:none!important}.layout{display:block}.panel{display:block!important;box-shadow:none;break-inside:avoid;border:1px solid #ccc}.content{width:100%}header{background:white;color:#111;padding:10px}header p{color:#333}main{padding:0}.footer{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="topline"><div class="brand">⚛ ATOMQUEST · LAB BELAJAR KIMIA</div><span class="tag">LKPD DIGITAL INTERAKTIF</span></div>
+  <h1>Menjelajahi Dunia Elektron</h1>
+  <p>Pelajari konfigurasi elektron melalui eksplorasi, tantangan interaktif, kuis otomatis, dan refleksi belajar.</p>
+  <div class="hero-meta"><span class="tag">Kimia · Fase E / Kelas X</span><span class="tag">Estimasi 2 × 45 menit</span><span class="tag">Bisa digunakan di HP & laptop</span></div>
+</header>
+<main>
+<div class="layout">
+<nav class="sidebar" aria-label="Navigasi LKPD">
+<strong>JELAJAHI LKPD</strong>
+<button class="navbtn active" data-page="identitas">01 · Identitas</button>
+<button class="navbtn" data-page="materi">02 · Materi</button>
+<button class="navbtn" data-page="eksplorasi">03 · Eksplorasi</button>
+<button class="navbtn" data-page="tantangan">04 · Tantangan</button>
+<button class="navbtn" data-page="kuis">05 · Kuis</button>
+<button class="navbtn" data-page="hots">06 · HOTS</button>
+<button class="navbtn" data-page="refleksi">07 · Refleksi</button>
+</nav>
+<div class="content">
+<div class="progress" aria-label="Progres LKPD"><div id="progressBar"></div></div>
+
+<section class="panel active" id="identitas">
+<div class="eyebrow">Mulai perjalananmu</div><h2>Identitas Peserta Didik</h2>
+<p class="muted">Isi identitas sebelum memulai. Data hanya digunakan di halaman ini dan tidak dikirim ke server.</p>
+<div class="grid2">
+<div class="field"><label for="nama">Nama lengkap</label><input id="nama" placeholder="Tuliskan nama lengkapmu"></div>
+<div class="field"><label for="kelas">Kelas</label><select id="kelas"><option>X-E</option><option>X-F</option><option>X-G</option><option>X-H</option><option>X-I</option></select></div>
+<div class="field"><label for="kelompok">Kelompok (opsional)</label><input id="kelompok" placeholder="Contoh: Kelompok 1"></div>
+<div class="field"><label for="tanggal">Tanggal kegiatan</label><input id="tanggal" type="date"></div>
+</div>
+<div class="callout"><b>🎯 Tujuan pembelajaran</b><ul><li>Menjelaskan pengertian konfigurasi elektron.</li><li>Menentukan jumlah elektron atom netral berdasarkan nomor atom.</li><li>Menuliskan konfigurasi elektron berdasarkan kulit atom.</li><li>Menentukan elektron valensi dan menghubungkannya dengan sifat unsur sederhana.</li></ul></div>
+<div class="btnrow"><button class="btn" onclick="go('materi')">Mulai belajar →</button></div>
+</section>
+
+<section class="panel" id="materi">
+<div class="eyebrow">Bekal pengetahuan</div><h2>Apa itu konfigurasi elektron?</h2>
+<p>Konfigurasi elektron adalah susunan elektron dalam tingkat energi atom. Untuk latihan dasar, susunan elektron dapat ditulis berdasarkan kulit atom: K, L, M, dan N.</p>
+<div class="grid3">
+<div class="callout"><b>Kulit K</b><h2 style="margin:4px 0">2 e⁻</h2><span class="muted">Maksimum 2 elektron</span></div>
+<div class="callout"><b>Kulit L</b><h2 style="margin:4px 0">8 e⁻</h2><span class="muted">Maksimum 8 elektron</span></div>
+<div class="callout"><b>Kulit berikutnya</b><h2 style="margin:4px 0">M, N…</h2><span class="muted">Ikuti urutan tingkat energi</span></div>
+</div>
+<h3>Contoh konfigurasi elektron</h3>
+<table><thead><tr><th>Unsur</th><th>Nomor atom</th><th>Konfigurasi kulit</th><th>Elektron valensi</th></tr></thead><tbody>
+<tr><td>Karbon (C)</td><td>6</td><td>2, 4</td><td>4</td></tr><tr><td>Oksigen (O)</td><td>8</td><td>2, 6</td><td>6</td></tr><tr><td>Neon (Ne)</td><td>10</td><td>2, 8</td><td>8</td></tr><tr><td>Natrium (Na)</td><td>11</td><td>2, 8, 1</td><td>1</td></tr><tr><td>Klor (Cl)</td><td>17</td><td>2, 8, 7</td><td>7</td></tr><tr><td>Kalsium (Ca)</td><td>20</td><td>2, 8, 8, 2</td><td>2</td></tr>
+</tbody></table>
+<div class="callout gold"><b>Ingat!</b> Untuk atom netral, jumlah elektron sama dengan nomor atom. Elektron valensi adalah elektron pada kulit terluar. Untuk unsur yang lebih berat, aturan konfigurasi orbital lebih lengkap diperlukan.</div>
+<div class="btnrow"><button class="btn" onclick="go('eksplorasi')">Lanjut ke eksplorasi →</button></div>
+</section>
+
+<section class="panel" id="eksplorasi">
+<div class="eyebrow">Aktivitas 1</div><h2>Eksplorasi Kulit Elektron</h2>
+<p>Geser nomor atom atau pilih unsur. Amati jumlah elektron pada setiap kulit dan tentukan elektron valensinya.</p>
+<div class="grid2">
+<div class="field"><label for="elementSelect">Pilih unsur</label><select id="elementSelect">
+<option value="1">Hidrogen (H) — 1</option><option value="2">Helium (He) — 2</option><option value="3">Litium (Li) — 3</option><option value="4">Berilium (Be) — 4</option><option value="5">Boron (B) — 5</option><option value="6">Karbon (C) — 6</option><option value="7">Nitrogen (N) — 7</option><option value="8">Oksigen (O) — 8</option><option value="9">Fluorin (F) — 9</option><option value="10">Neon (Ne) — 10</option><option value="11" selected>Natrium (Na) — 11</option><option value="12">Magnesium (Mg) — 12</option><option value="13">Aluminium (Al) — 13</option><option value="14">Silikon (Si) — 14</option><option value="15">Fosfor (P) — 15</option><option value="16">Sulfur (S) — 16</option><option value="17">Klor (Cl) — 17</option><option value="18">Argon (Ar) — 18</option><option value="19">Kalium (K) — 19</option><option value="20">Kalsium (Ca) — 20</option></select></div>
+<div class="field"><label for="atomicNumber">Atur nomor atom: <span id="zLabel">11</span></label><input type="range" min="1" max="20" value="11" id="atomicNumber"></div>
+</div>
+<div class="callout">
+<div class="eyebrow">Model atom sederhana</div><h2 id="atomName" style="margin:5px 0">Natrium (Na)</h2>
+<div class="shells" id="shellDisplay"></div>
+<div class="grid3"><div><span class="muted">Nomor atom</span><h2 id="zOut">11</h2></div><div><span class="muted">Konfigurasi kulit</span><h2 id="configOut">2, 8, 1</h2></div><div><span class="muted">Elektron valensi</span><h2 id="valenceOut">1</h2></div></div>
+</div>
+<h3>Pertanyaan pengamatan</h3>
+<div class="field"><label>1. Berapa jumlah elektron atom netral yang kamu pilih?</label><input id="obs1" type="number" min="1" max="20" placeholder="Jumlah elektron"></div>
+<div class="field"><label>2. Berapa elektron valensinya?</label><input id="obs2" type="number" min="1" max="8" placeholder="Elektron pada kulit terluar"></div>
+<button class="btn" onclick="checkExplore()">Periksa pengamatan</button><div id="exploreFeedback" class="feedback" aria-live="polite"></div>
+<div class="btnrow"><button class="btn secondary" onclick="go('tantangan')">Lanjut ke tantangan →</button></div>
+</section>
+
+<section class="panel" id="tantangan">
+<div class="eyebrow">Aktivitas 2</div><h2>Tantangan Detektif Elektron</h2>
+<p>Lengkapi konfigurasi kulit dan elektron valensi untuk setiap unsur. Tulis angka konfigurasi dipisahkan koma, misalnya <b>2, 8, 1</b>.</p>
+<div id="challengeList"></div>
+<div class="btnrow"><button class="btn" onclick="checkChallenges()">Periksa jawaban</button><button class="btn secondary" onclick="resetChallenges()">Ulangi</button></div>
+<div id="challengeScore" aria-live="polite"></div>
+<div class="btnrow"><button class="btn secondary" onclick="go('kuis')">Lanjut ke kuis →</button></div>
+</section>
+
+<section class="panel" id="kuis">
+<div class="eyebrow">Cek pemahaman</div><h2>Kuis Cepat</h2><p>Pilih satu jawaban paling tepat pada setiap soal. Skor dihitung otomatis.</p>
+<div id="quizList"></div>
+<div class="btnrow"><button class="btn" onclick="gradeQuiz()">Nilai kuis</button><button class="btn secondary" onclick="resetQuiz()">Ulangi kuis</button></div>
+<div id="quizScore" aria-live="polite"></div>
+<div class="btnrow"><button class="btn secondary" onclick="go('hots')">Lanjut ke HOTS →</button></div>
+</section>
+
+<section class="panel" id="hots">
+<div class="eyebrow">Aktivitas 3 · Penalaran</div><h2>Tantangan Berpikir Kritis (HOTS)</h2>
+<div class="field"><label>1. Atom X memiliki nomor atom 16. Tentukan konfigurasi elektronnya dan jumlah elektron valensinya. Jelaskan caramu.</label><textarea id="hots1" placeholder="Tuliskan jawaban dan langkah berpikirmu..."></textarea></div>
+<div class="field"><label>2. Unsur A memiliki konfigurasi 2, 8, 1, sedangkan unsur B memiliki konfigurasi 2, 8, 7. Jelaskan bagaimana keduanya dapat membentuk ikatan ion.</label><textarea id="hots2" placeholder="Jelaskan perpindahan elektron dan ion yang terbentuk..."></textarea></div>
+<div class="field"><label>3. Unsur dengan konfigurasi 2, 8, 2 dan 2, 8, 8, 2 memiliki kesamaan apa? Apakah sifat kimianya pasti sama persis? Jelaskan.</label><textarea id="hots3" placeholder="Tuliskan pendapat dan alasanmu..."></textarea></div>
+<div class="callout gold"><b>Petunjuk penilaian guru:</b> Setiap jawaban uraian dapat dinilai berdasarkan ketepatan konsep (50%), alasan ilmiah (30%), dan kejelasan penjelasan (20%).</div>
+<div class="btnrow"><button class="btn secondary" onclick="go('refleksi')">Lanjut ke refleksi →</button></div>
+</section>
+
+<section class="panel" id="refleksi">
+<div class="eyebrow">Penutup pembelajaran</div><h2>Kesimpulan & Refleksi</h2>
+<div class="field"><label>1. Seberapa paham kamu dengan materi ini?</label><select id="reflectionLevel"><option value="">Pilih refleksi</option><option>Sangat paham — bisa mengerjakan mandiri</option><option>Cukup paham — masih perlu berlatih</option><option>Belum paham — membutuhkan bimbingan</option></select></div>
+<div class="field"><label>2. Bagian mana yang paling menantang?</label><select id="reflectionChallenge"><option value="">Pilih bagian</option><option>Menentukan jumlah elektron</option><option>Mengisi elektron pada kulit atom</option><option>Menentukan elektron valensi</option><option>Menghubungkan konfigurasi dengan ikatan kimia</option></select></div>
+<div class="field"><label>3. Apa rencana belajarmu selanjutnya?</label><textarea id="reflectionPlan" placeholder="Tuliskan rencana singkatmu..."></textarea></div>
+<div class="callout green"><b>Pesan untuk ilmuwan muda:</b><br>Setiap elektron memiliki tempat dan perannya. Kamu juga punya potensi unik untuk belajar, bertumbuh, dan memberi manfaat. Teruslah bertanya, mencoba, dan belajar dari kesalahan!</div>
+<div class="btnrow"><button class="btn" onclick="downloadReport()">Unduh hasil LKPD (.txt)</button><button class="btn secondary" onclick="window.print()">Cetak / Simpan PDF</button></div>
+<p class="muted" style="font-size:.86rem">Hasil tidak dikirim otomatis kepada guru. Unduh hasil LKPD untuk menyimpan jawaban dan menyerahkannya sesuai arahan guru.</p>
+</section>
+</div></div>
+<div class="footer">ATOMQUEST · LKPD Interaktif Kimia · Konfigurasi Elektron<br>Dirancang untuk kegiatan belajar mandiri maupun diskusi kelas.</div>
+</main>
+<script>
+const elements={
+1:['Hidrogen','H'],2:['Helium','He'],3:['Litium','Li'],4:['Berilium','Be'],5:['Boron','B'],6:['Karbon','C'],7:['Nitrogen','N'],8:['Oksigen','O'],9:['Fluorin','F'],10:['Neon','Ne'],11:['Natrium','Na'],12:['Magnesium','Mg'],13:['Aluminium','Al'],14:['Silikon','Si'],15:['Fosfor','P'],16:['Sulfur','S'],17:['Klor','Cl'],18:['Argon','Ar'],19:['Kalium','K'],20:['Kalsium','Ca']};
+function shellsFor(z){if(z<=2)return[z];if(z<=10)return[2,z-2];if(z<=18)return[2,8,z-10];return[2,8,8,z-18]}
+function config(z){return shellsFor(z).join(', ')}
+function valence(z){return shellsFor(z).slice(-1)[0]}
+function renderAtom(){const z=+document.getElementById('atomicNumber').value;document.getElementById('elementSelect').value=z;document.getElementById('zLabel').textContent=z;document.getElementById('zOut').textContent=z;document.getElementById('atomName').textContent=elements[z][0]+' ('+elements[z][1]+')';document.getElementById('configOut').textContent=config(z);document.getElementById('valenceOut').textContent=valence(z);document.getElementById('shellDisplay').innerHTML=shellsFor(z).map((n,i)=>`<div class="shell"><span>Kulit ${'KLMN'[i]}</span><b>${n} e⁻</b></div>`).join('');document.getElementById('obs1').value='';document.getElementById('obs2').value='';document.getElementById('exploreFeedback').textContent=''}
+document.getElementById('atomicNumber').addEventListener('input',renderAtom);document.getElementById('elementSelect').addEventListener('change',e=>{document.getElementById('atomicNumber').value=e.target.value;renderAtom()});renderAtom();
+function checkExplore(){const z=+document.getElementById('atomicNumber').value;const a=+document.getElementById('obs1').value,b=+document.getElementById('obs2').value;const f=document.getElementById('exploreFeedback');if(!a||!b){f.className='feedback incorrect';f.textContent='Lengkapi kedua jawaban terlebih dahulu.';return}const ok=a===z&&b===valence(z);f.className='feedback '+(ok?'correct':'incorrect');f.textContent=ok?'Tepat! Jumlah elektron atom netral = nomor atom, dan elektron valensi = '+valence(z)+'.':'Belum tepat. Coba amati kembali nomor atom dan jumlah elektron pada kulit terluar.'}
+const challenges=[{s:'Al',n:'Aluminium',z:13,c:'2, 8, 3',v:3},{s:'P',n:'Fosfor',z:15,c:'2, 8, 5',v:5},{s:'S',n:'Sulfur',z:16,c:'2, 8, 6',v:6},{s:'K',n:'Kalium',z:19,c:'2, 8, 8, 1',v:1}];
+function buildChallenges(){document.getElementById('challengeList').innerHTML=challenges.map((t,i)=>`<div class="question"><div class="qtitle">${i+1}. ${t.n} (${t.s}) · Nomor atom ${t.z}</div><div class="grid2"><div class="field"><label>Konfigurasi kulit</label><input id="cc${i}" placeholder="Contoh: 2, 8, 1"></div><div class="field"><label>Elektron valensi</label><input id="cv${i}" type="number" min="1" max="8" placeholder="Jumlah elektron"></div></div><div id="cf${i}" class="feedback"></div></div>`).join('')}
+function normalize(s){return (s||'').replace(/\s/g,'').replace(/;/g,',')}
+function checkChallenges(){let score=0;challenges.forEach((t,i)=>{const ok=normalize(document.getElementById('cc'+i).value)===normalize(t.c)&&+document.getElementById('cv'+i).value===t.v;const f=document.getElementById('cf'+i);f.className='feedback '+(ok?'correct':'incorrect');f.textContent=ok?'Benar!':'Belum tepat. Jawaban: '+t.c+'; elektron valensi '+t.v+'.';if(ok)score++});document.getElementById('challengeScore').innerHTML=`<div class="scorebox"><b>Skor tantangan: ${score*25}/100</b><br>${score===4?'Luar biasa! Semua jawaban tepat.':'Terus berlatih dan periksa kembali jawaban yang belum tepat.'}</div>`}
+function resetChallenges(){buildChallenges();document.getElementById('challengeScore').innerHTML=''}
+buildChallenges();
+const questions=[
+{q:'Atom netral dengan nomor atom 8 memiliki jumlah elektron sebanyak…',o:['6','8','10','16'],a:1,e:'Atom netral memiliki jumlah elektron sama dengan nomor atom.'},
+{q:'Konfigurasi elektron kulit untuk natrium (Z = 11) adalah…',o:['2, 7, 2','2, 8, 1','2, 8, 2','2, 9'],a:1,e:'Sebelas elektron tersusun 2 pada K, 8 pada L, dan 1 pada M.'},
+{q:'Elektron valensi adalah…',o:['Elektron di inti atom','Jumlah proton dalam atom','Elektron pada kulit terluar','Jumlah neutron'],a:2,e:'Elektron valensi menempati kulit terluar atom.'},
+{q:'Unsur dengan konfigurasi 2, 8, 7 memiliki elektron valensi…',o:['2','7','8','17'],a:1,e:'Angka terakhir menunjukkan jumlah elektron pada kulit terluar.'},
+{q:'Konfigurasi kulit kalsium (Z = 20) adalah…',o:['2, 8, 10','2, 8, 8, 2','2, 8, 9, 1','2, 10, 8'],a:1,e:'Untuk model kulit dasar, kalsium ditulis 2, 8, 8, 2.'}
+];
+function buildQuiz(){document.getElementById('quizList').innerHTML=questions.map((q,i)=>`<div class="question"><div class="qtitle">${i+1}. ${q.q}</div><div class="options">${q.o.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"><span>${o}</span></label>`).join('')}</div><div id="qf${i}" class="feedback"></div></div>`).join('')}
+function gradeQuiz(){let score=0,answered=0;questions.forEach((q,i)=>{const chosen=document.querySelector(`input[name="q${i}"]:checked`);const f=document.getElementById('qf'+i);if(chosen)answered++;const ok=chosen&&+chosen.value===q.a;if(ok)score++;f.className='feedback '+(ok?'correct':'incorrect');f.textContent=ok?'Benar! '+q.e:(chosen?'Belum tepat. '+q.e:'Belum dijawab. '+q.e)});document.getElementById('quizScore').innerHTML=`<div class="scorebox"><b>Skor kuis: ${Math.round(score/questions.length*100)}/100</b><br>Jawaban terisi: ${answered} dari ${questions.length}. ${score===questions.length?'Sempurna!': 'Pelajari umpan balik pada setiap soal, lalu coba lagi.'}</div>`}
+function resetQuiz(){buildQuiz();document.getElementById('quizScore').innerHTML=''}
+buildQuiz();
+function go(id){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===id));const ids=['identitas','materi','eksplorasi','tantangan','kuis','hots','refleksi'];document.getElementById('progressBar').style.width=((ids.indexOf(id)+1)/ids.length*100)+'%';if(window.innerWidth<800)document.querySelector('.sidebar').scrollIntoView({behavior:'smooth',block:'start'});else window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+function val(id){return document.getElementById(id)?.value||'(belum diisi)'}
+function downloadReport(){const lines=['LKPD INTERAKTIF KIMIA — KONFIGURASI ELEKTRON','Nama: '+val('nama'),'Kelas: '+val('kelas'),'Kelompok: '+val('kelompok'),'Tanggal: '+val('tanggal'),'','AKTIVITAS EKSPLORASI','Nomor atom dipilih: '+val('atomicNumber'),'Konfigurasi yang diamati: '+config(+val('atomicNumber')),'Jawaban jumlah elektron: '+val('obs1'),'Jawaban elektron valensi: '+val('obs2'),'','TANTANGAN KONFIGURASI'];challenges.forEach((t,i)=>lines.push(`${t.n}: konfigurasi ${val('cc'+i)}; valensi ${val('cv'+i)}`));lines.push('','HASIL KUIS');questions.forEach((q,i)=>{const a=document.querySelector(`input[name="q${i}"]:checked`);lines.push(`${i+1}. ${q.q}\nJawaban: ${a?q.o[+a.value]:'Belum dijawab'}`)});lines.push('','JAWABAN HOTS', '1. '+val('hots1'),'2. '+val('hots2'),'3. '+val('hots3'),'','REFLEKSI','Pemahaman: '+val('reflectionLevel'),'Tantangan: '+val('reflectionChallenge'),'Rencana belajar: '+val('reflectionPlan'));const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='LKPD-Konfigurasi-Elektron-'+(val('nama').replace(/[^a-z0-9]/gi,'-')||'siswa')+'.txt';a.click();URL.revokeObjectURL(url)}
+document.getElementById('tanggal').value=new Date().toISOString().slice(0,10);go('identitas');
+</script>
+</body>
+</html>
